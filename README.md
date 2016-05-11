@@ -1,28 +1,31 @@
-# LogKeeper
-Intern Project
+<p><strong># LogKeeper<br />
+Intern Project</strong></p>
 
-loglari tutan, düzenleyen ve bazı case'lere göre analiz edip etiketleyen bir program.
-İki kısımdan oluşuyor. Birinci kısımda dosya grubu bulunmaktadır. İkinci kısımda ise bu dosya gruplarına
-ait dosyalar bulunmaktadır. 
+<p>loglari tutan, d&uuml;zenleyen ve bazı case&#39;lere g&ouml;re analiz edip etiketleyen bir program.<br />
+İki kısımdan oluşuyor. Birinci kısımda dosya grubu bulunmaktadır. İkinci kısımda ise bu dosya gruplarına<br />
+ait dosyalar bulunmaktadır.&nbsp;</p>
 
-  Dosya grubunda yapılabilecek özellikler;
-  1-Dosya grubu silinebilir.
-  2-Dosya grubu zip'li bir şekilde indirebilir.
-  3-Dosya grubunun linki paylaşılabilir.
-  4-Dosya grubunun ismi güncellenebilir.
-  5-Dosya grublarının bulunduğu datatable excel,pdf,xml ve csv formatlarına aktarılabilir.
-  6-Etiket bulutunda tıklanan etikete göre dosya grubu getirilir.
-  7-Datable'da filtreleme yapılarak istenilen veri getirilebilir.
-  
-  Dosya üzerinde yapılabilecek işlemler;
-  1-Log dosya indirebilir
-  2-Log dosyanın linki paylaşılabilir
-  3-Log dosyası silinebilir
-  4-Log dosya grubuna yeni etiket konulabilir.
-  5-Yeni log dosyası eklenebilir.
-  6-Log dosyalarının tamamı indirebilir
-  7-Log dosyalarının tamamı silinebilir
-  8-Log dosya grubuna ait etiket silinebilir
- 
-  
-  
+<p>&nbsp; Dosya grubunda yapılabilecek &ouml;zellikler;<br />
+&nbsp; 1-Dosya grubu silinebilir.<br />
+&nbsp; 2-Dosya grubu zip&#39;li bir şekilde indirebilir.<br />
+&nbsp; 3-Dosya grubunun linki paylaşılabilir.<br />
+&nbsp; 4-Dosya grubunun ismi g&uuml;ncellenebilir.<br />
+&nbsp; 5-Dosya grublarının bulunduğu datatable excel,pdf,xml ve csv formatlarına aktarılabilir.<br />
+&nbsp; 6-Etiket bulutunda tıklanan etikete g&ouml;re dosya grubu getirilir.<br />
+&nbsp; 7-Datable&#39;da filtreleme yapılarak istenilen veri getirilebilir.<br />
+&nbsp;&nbsp;<br />
+&nbsp; Dosya &uuml;zerinde yapılabilecek işlemler;<br />
+&nbsp; 1-Log dosya indirebilir<br />
+&nbsp; 2-Log dosyanın linki paylaşılabilir<br />
+&nbsp; 3-Log dosyası silinebilir<br />
+&nbsp; 4-Log dosya grubuna yeni etiket konulabilir.<br />
+&nbsp; 5-Yeni log dosyası eklenebilir.<br />
+&nbsp; 6-Log dosyalarının tamamı indirebilir<br />
+&nbsp; 7-Log dosyalarının tamamı silinebilir<br />
+&nbsp; 8-Log dosya grubuna ait etiket silinebilir<br />
+&nbsp;<br />
+&nbsp;&nbsp;<br />
+&nbsp;&nbsp;<br />
+&nbsp;</p>
+
+<p>&nbsp;</p>
