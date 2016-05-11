@@ -1,4 +1,4 @@
-<p><strong># LogKeeper<br />
+<p><strong>LogKeeper<br />
 Intern Project</strong></p>
 
 <p>loglari tutan, d&uuml;zenleyen ve bazı case&#39;lere g&ouml;re analiz edip etiketleyen bir program.<br />
