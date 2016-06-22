@@ -12,8 +12,13 @@ import javax.persistence.Table;
 @Table(name = "parameter", catalog = "fileupload")
 public class Parameter implements java.io.Serializable {
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
+	@Column(name = "key_n", unique = true, length = 255)
 	private String key;
+	@Column(name = "value_n", length = 255)
 	private String value;
 
 	public Parameter() {
@@ -24,10 +29,6 @@ public class Parameter implements java.io.Serializable {
 		this.value = value;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
 	}
@@ -36,7 +37,6 @@ public class Parameter implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "key", unique = true, length = 255)
 	public String getKey() {
 		return this.key;
 	}
@@ -45,7 +45,6 @@ public class Parameter implements java.io.Serializable {
 		this.key = key;
 	}
 
-	@Column(name = "value", length = 255)
 	public String getValue() {
 		return this.value;
 	}
