@@ -104,65 +104,7 @@ public class App implements Serializable {
 	private List<AdiAlani> filteredAdiAlani;
 	private String test = "Kjsakdjkasjdk";
 
-	public String getTest() {
-		return test;
-	}
-
-	public void setTest(String test) {
-		this.test = test;
-	}
-
-	public List<String> getListFileSize() {
-		return listFileSize;
-	}
-
-	public void setListFileSize(List<String> listFileSize) {
-		this.listFileSize = listFileSize;
-	}
-
-	public List<AdiAlani> getFilteredAdiAlani() {
-		return filteredAdiAlani;
-	}
-
-	public void setFilteredAdiAlani(List<AdiAlani> filteredAdiAlani) {
-		this.filteredAdiAlani = filteredAdiAlani;
-	}
-
-	public String getTxtFileGroupName() {
-		return txtFileGroupName;
-	}
-
-	public void setTxtFileGroupName(String txtFileGroupName) {
-		this.txtFileGroupName = txtFileGroupName;
-	}
-
-	public String getPreviewPath() {
-		return previewPath;
-	}
-
-	public void setPreviewPath(String previewPath) {
-		this.previewPath = previewPath;
-	}
-
-	public void setPdfDocument(StreamedContent pdfDocument) {
-		this.pdfDocument = pdfDocument;
-	}
-
-	public StreamedContent getPdfDocument() {
-		return pdfDocument;
-	}
-
-	public TagCloudModel getModel() {
-		return model;
-	}
-
-	public boolean isResponseRenderedDescription() {
-		return responseRenderedDescription;
-	}
-
-	public void setResponseRenderedDescription(boolean responseRenderedDescription) {
-		this.responseRenderedDescription = responseRenderedDescription;
-	}
+	
 
 	private String txtFileUpload;
 
@@ -1308,6 +1250,67 @@ public class App implements Serializable {
 				+ ".pdf";
 		ConvertPdf.convertTextfileToPDF(file);
 		getPDF();
+	}
+	
+	
+	public String getTest() {
+		return test;
+	}
+
+	public void setTest(String test) {
+		this.test = test;
+	}
+
+	public List<String> getListFileSize() {
+		return listFileSize;
+	}
+
+	public void setListFileSize(List<String> listFileSize) {
+		this.listFileSize = listFileSize;
+	}
+
+	public List<AdiAlani> getFilteredAdiAlani() {
+		return filteredAdiAlani;
+	}
+
+	public void setFilteredAdiAlani(List<AdiAlani> filteredAdiAlani) {
+		this.filteredAdiAlani = filteredAdiAlani;
+	}
+
+	public String getTxtFileGroupName() {
+		return txtFileGroupName;
+	}
+
+	public void setTxtFileGroupName(String txtFileGroupName) {
+		this.txtFileGroupName = txtFileGroupName;
+	}
+
+	public String getPreviewPath() {
+		return previewPath;
+	}
+
+	public void setPreviewPath(String previewPath) {
+		this.previewPath = previewPath;
+	}
+
+	public void setPdfDocument(StreamedContent pdfDocument) {
+		this.pdfDocument = pdfDocument;
+	}
+
+	public StreamedContent getPdfDocument() {
+		return pdfDocument;
+	}
+
+	public TagCloudModel getModel() {
+		return model;
+	}
+
+	public boolean isResponseRenderedDescription() {
+		return responseRenderedDescription;
+	}
+
+	public void setResponseRenderedDescription(boolean responseRenderedDescription) {
+		this.responseRenderedDescription = responseRenderedDescription;
 	}
 
 }
