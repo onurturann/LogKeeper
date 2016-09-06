@@ -38,7 +38,7 @@ public class UserDao {
 			}
 		} catch (Exception ex) {
 			if (LOGGER.isEnabledFor(Level.ERROR)) {
-				LOGGER.error("Kullanýcý Silinemedi. " + user.getName() + " " + ex.toString());
+				LOGGER.error("Kullanýcý Silinemedi UserDao. " + user.getName() + " " + ex.toString());
 			}
 		}
 	}

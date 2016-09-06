@@ -3,6 +3,8 @@ package net.logkeeper.spring.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user", catalog = "fileupload")
-public class User implements java.io.Serializable {
+public class User implements Serializable {
 
 	private Integer id;
 	private String name;
@@ -24,14 +26,16 @@ public class User implements java.io.Serializable {
 	private String createDate;
 	private Boolean enabled;
 
-	public User() {
+	public User() 
+	{
+		
 	}
 
 	public User(String name, String surname) {
 		this.name = name;
 		this.surname = surname;
 	}
-
+	
 	public User(String name, String surname, String email, String password, String createDate, Boolean enabled) {
 		this.name = name;
 		this.surname = surname;

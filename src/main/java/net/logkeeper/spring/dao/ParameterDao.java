@@ -2,6 +2,8 @@ package net.logkeeper.spring.dao;
 
 import java.util.List;
 
+import net.logkeeper.spring.model.Parameter;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -9,8 +11,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import net.logkeeper.spring.model.Parameter;
 
 @Repository
 public class ParameterDao{
@@ -43,7 +43,7 @@ public class ParameterDao{
 			}
 		} catch (Exception ex) {
 			if (LOGGER.isEnabledFor(Level.ERROR)) {
-				LOGGER.error("parametre silinemedi.  " + ex.toString());
+				LOGGER.error("parametre silinemedi ParameterDao.  " + ex.toString());
 			}
 		}
 	}
@@ -53,7 +53,8 @@ public class ParameterDao{
 		query.setParameter("key", key).setMaxResults(1);
 		return (Parameter) query.uniqueResult();
 	}
-	public List findByParameter() {
+	@SuppressWarnings("unchecked")
+	public List<Integer> findByParameter() {
 		return getCurrentSession().createQuery("from Parameter").list();
 	}
 	private Session getCurrentSession() {

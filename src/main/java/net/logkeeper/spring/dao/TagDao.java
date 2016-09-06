@@ -53,7 +53,7 @@ public class TagDao {
 			}
 		} catch (Exception ex) {
 			if (LOGGER.isEnabledFor(Level.ERROR)) {
-				LOGGER.error("Tag Silinemedi. " + tag.getName() + " " + ex.toString());
+				LOGGER.error("Tag Silinemedi TagDao. " + tag.getName() + " " + ex.toString());
 			}
 		}
 	}

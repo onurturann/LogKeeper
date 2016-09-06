@@ -1,10 +1,13 @@
 package net.logkeeper.spring.model;
 // Generated 16.Mar.2016 09:29:26 by Hibernate Tools 3.4.0.CR1
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,23 +16,31 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "file", catalog = "fileupload")
-public class LogFile implements java.io.Serializable {
-
+public class LogFile implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
+	
+	@Column(name = "path", length=500,nullable = false)
 	private String path;
 	private int fileGroupId;
-	private String createDate;
+ 	private String createDate;
 	private String enabled;
-    private String fileTag;
-    private String size;
-	public LogFile() {
+	private String fileTag;
+	private String size;
+	
+	public LogFile() 
+	{
+		
 	}
 
 	public LogFile(String path, int fileGroupId) {
 		this.path = path;
 		this.fileGroupId = fileGroupId;
 	}
-
+	
 	public LogFile(String path, int fileGroupId, String createDate, String enabled, String fileTag) {
 		this.path = path;
 		this.fileGroupId = fileGroupId;
@@ -37,20 +48,21 @@ public class LogFile implements java.io.Serializable {
 		this.enabled = enabled;
 		this.fileTag=fileTag;
 	}
-
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "id", unique = true, nullable = false)
+  
+	@Override
+	public String toString() {
+		return "LogFile [id=" + id + ", path=" + path + ", fileGroupId=" + fileGroupId + ", createDate=" + createDate
+				+ ", enabled=" + enabled + ", fileTag=" + fileTag + "]";
+	}
+	
 	public Integer getId() {
 		return this.id;
-	}
+	}  
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	@Column(name = "path", length=500,nullable = false)
 	public String getPath() {
 		return this.path;
 	}
@@ -67,7 +79,7 @@ public class LogFile implements java.io.Serializable {
 	public void setFileGroupId(int fileGroupId) {
 		this.fileGroupId = fileGroupId;
 	}
-
+	
 	@Column(name = "file_tag", length = 130)
 	public String getFileTag() {
 		return this.fileTag;
@@ -94,6 +106,7 @@ public class LogFile implements java.io.Serializable {
 	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
+	
 	@Column(name = "size", length = 45)
 	public String getSize() {
 		return this.size;
@@ -101,12 +114,5 @@ public class LogFile implements java.io.Serializable {
 
 	public void setSize(String size) {
 		this.size = size;
-	}
-
-	@Override
-	public String toString() {
-		return "LogFile [id=" + id + ", path=" + path + ", fileGroupId=" + fileGroupId + ", createDate=" + createDate
-				+ ", enabled=" + enabled + ", fileTag=" + fileTag + ", size=" + size + "]";
-	}
-
+	}	
 }

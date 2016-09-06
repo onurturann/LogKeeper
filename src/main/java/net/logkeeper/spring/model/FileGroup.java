@@ -1,12 +1,11 @@
 package net.logkeeper.spring.model;
 // Generated 16.Mar.2016 09:29:26 by Hibernate Tools 3.4.0.CR1
-
+//interface katmaný
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +26,7 @@ import org.hibernate.annotations.CascadeType;
  */
 @Entity
 @Table(name = "file_group", catalog = "fileupload")
-public class FileGroup implements java.io.Serializable {
+public class FileGroup implements Serializable {
 
 	private Integer id;
 	private String name;
@@ -38,9 +37,15 @@ public class FileGroup implements java.io.Serializable {
 	private User user;
 	private String description;
 	private List<Tag> tags = new ArrayList<Tag>(0);
-	public FileGroup() {
+	private int useful;
+	private int useless;
+	
+	
+	public FileGroup() 
+	{
+		
 	}
-
+	
 	public FileGroup(String name, int userId, String createDate) {
 		this.name = name;
 		this.userId = userId;
@@ -55,6 +60,14 @@ public class FileGroup implements java.io.Serializable {
 		this.enabled = enabled;
 	}
 
+	@Override
+	public String toString() 
+	{
+		return "FileGroup [id=" + id + ", name=" + name + ", userId=" + userId + ", createDate=" + createDate
+				+ ", updateDate=" + updateDate + ", enabled=" + enabled + ", user=" + user + ", description="
+				+ description + ", tags=" + tags + ", useful=" + useful + ", useless=" + useless + "]";
+	}
+ 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
@@ -84,7 +97,7 @@ public class FileGroup implements java.io.Serializable {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
+	
 	@Column(name = "create_date", nullable = false, length = 45)
 	public String getCreateDate() {
 		return this.createDate;
@@ -120,6 +133,26 @@ public class FileGroup implements java.io.Serializable {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
+	
+	
+	@Column(name = "useful", nullable=false)
+	public int getUseful() {
+	    return useful;
+	}
+
+	public void setUseful(int useful) {
+	    this.useful = useful;
+	}
+
+	@Column(name = "useless", nullable=false)
+	public int getUseless() {
+	    return useless;
+	}
+
+	public void setUseless(int useless) {
+	    this.useless = useless;
+	}
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false,insertable=false, updatable=false)
 	public User getUser() {
@@ -130,11 +163,12 @@ public class FileGroup implements java.io.Serializable {
 		this.user = user;
 	}
 	@ManyToMany(fetch = FetchType.EAGER)
-	@Cascade({CascadeType.ALL})
+	@Cascade(CascadeType.ALL)
 	@JoinTable(name = "file_group_tag", catalog = "fileupload", joinColumns = { 
 			@JoinColumn(name = "file_group_id", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { @JoinColumn(name = "tag_id", 
 					nullable = false, updatable = false ) })
+	//@Cascade(CascadeType.DELETE)
 	public List<Tag> getTags() {
 		return this.tags;
 	}
@@ -142,13 +176,5 @@ public class FileGroup implements java.io.Serializable {
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
-
-	@Override
-	public String toString() {
-		return "FileGroup [id=" + id + ", name=" + name + ", userId=" + userId + ", createDate=" + createDate
-				+ ", updateDate=" + updateDate + ", enabled=" + enabled + ", user=" + user + ", description="
-				+ description + ", tags=" + tags + "]";
-	}
-	
 	
 }

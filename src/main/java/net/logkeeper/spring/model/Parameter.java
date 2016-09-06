@@ -2,6 +2,8 @@ package net.logkeeper.spring.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "parameter", catalog = "fileupload")
-public class Parameter implements java.io.Serializable {
+public class Parameter implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

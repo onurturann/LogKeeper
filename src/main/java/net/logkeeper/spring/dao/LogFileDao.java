@@ -2,6 +2,8 @@ package net.logkeeper.spring.dao;
 
 import java.util.List;
 
+import net.logkeeper.spring.model.LogFile;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -10,21 +12,17 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import net.logkeeper.spring.model.LogFile;
-
 @Repository
 public class LogFileDao {
 	@Autowired
 	SessionFactory sessionFactory;
 	private static final Logger LOGGER = Logger.getLogger(LogFileDao.class.getName());
 
-
-
 	public void save(LogFile file) {
 		getCurrentSession().save(file);
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("yeni bir log file oluþturuldu. " + file.getPath());
-		}
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("yeni bir log file oluþturuldu. " + file.getPath());
+			}
 	}
 
 	public void saveOrUpdate(LogFile file) {
@@ -43,7 +41,7 @@ public class LogFileDao {
 			}
 		} catch (Exception ex) {
 			if (LOGGER.isEnabledFor(Level.ERROR)) {
-				LOGGER.error("Log dosyasý silinemedi. " + file.getPath() + " " + ex.toString());
+				LOGGER.error("Log dosyasý silinemedi LogFileDao. " + file.getPath() + " " + ex.toString());
 			}
 		}
 	}
@@ -63,11 +61,12 @@ public class LogFileDao {
 		return (LogFile) query.uniqueResult();
 	}
 
-	public List listFile(int id) {
+	public List<Integer> listFile(int id) {
 		String hql = "from LogFile f where f.fileGroupId= :id";
 		Query query = getCurrentSession().createQuery(hql);
 		query.setParameter("id", id);
-		List results = query.list();
+		@SuppressWarnings("unchecked")
+		List<Integer> results = query.list();
 		return results;
 	}
 

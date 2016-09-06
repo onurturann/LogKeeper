@@ -15,7 +15,7 @@ import org.primefaces.model.StreamedContent;
 @ApplicationScoped
 public class MediaManager implements Serializable{
 
-	private StreamedContent pdfDocument;
+    private StreamedContent pdfDocument;
     String previewPath = "";
 
     public String getIdFile() {
