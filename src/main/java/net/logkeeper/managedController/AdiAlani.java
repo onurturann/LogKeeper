@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import net.logkeeper.spring.model.FileGroup;
 import net.logkeeper.spring.service.FileGroupService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @ManagedBean(name = "adiAlani")
 @SessionScoped
@@ -34,7 +33,7 @@ public class AdiAlani implements Serializable {
     private AdiAlani selectedFile;
     private int useful;
     private int useless;
-    
+
     public AdiAlani() {
 
     }
@@ -186,21 +185,21 @@ public class AdiAlani implements Serializable {
     public void setFileGroupService(FileGroupService fileGroupService) {
 	this.fileGroupService = fileGroupService;
     }
-    
+
     public int getUseful() {
-        return useful;
+	return useful;
     }
 
     public void setUseful(int useful) {
-        this.useful = useful;
+	this.useful = useful;
     }
-    
+
     public int getUseless() {
-        return useless;
+	return useless;
     }
 
     public void setUseless(int useless) {
-        this.useless = useless;
+	this.useless = useless;
     }
 
     public void saveAction(AdiAlani aa) {
@@ -210,7 +209,6 @@ public class AdiAlani implements Serializable {
 		.findByFileGroup(aa.getId());
 	fileGroups.setName(aa.getAlani());
 	getFileGroupService().update(fileGroups);
-	System.out.println("File Group Name: " + aa.getAlani());
 	// return to current page
     }
 

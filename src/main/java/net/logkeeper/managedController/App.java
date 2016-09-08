@@ -34,7 +34,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import net.logkeeper.spring.model.FileGroup;
@@ -49,17 +48,14 @@ import net.logkeeper.spring.service.UserService;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.hibernate.sql.Insert;
 import org.json.JSONObject;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.CloseEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
@@ -77,10 +73,6 @@ import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
-
-//ui-fileupload-content
-//max yükseklik belirle
-//overflow yap
 
 @ManagedBean(name = "app")
 @SessionScoped
@@ -125,8 +117,6 @@ public class App implements Serializable {
     List<FileGroup> listFileGroup = new ArrayList<FileGroup>();
 
     StringBuilder builder = new StringBuilder();
-
-    private Logger logger = Logger.getLogger(App.class);
 
     @Autowired
     public FileGroupService fileGroupService;
@@ -320,23 +310,24 @@ public class App implements Serializable {
 				if (mergeQuery() != "") {
 				    FacesMessage message = new FacesMessage(
 					    FacesMessage.SEVERITY_INFO,
-					    "Baþarýyla eklendi.", " ");
+					    "Tag has been added successfully.",
+					    " ");
 				    RequestContext.getCurrentInstance()
 					    .showMessageInDialog(message);
 				}
 			    } else {
 				FacesMessage message = new FacesMessage(
 					FacesMessage.SEVERITY_WARN,
-					"Jira tag yapýsýna uymuyor!!",
-					"Örnek: ABE-556 ");
+					"It isn't suitable for Jira tag structure!!",
+					"Sapmle: ABE-556 ");
 				RequestContext.getCurrentInstance()
 					.showMessageInDialog(message);
 			    }
 			} else {
 			    FacesMessage message = new FacesMessage(
 				    FacesMessage.SEVERITY_WARN,
-				    "Jira tag yapýsýna uymuyor!!",
-				    "Örnek: ABE-556 ");
+				    "It isn't suitable for Jira tag structure!!",
+				    "Sample: ABE-556 ");
 			    RequestContext.getCurrentInstance()
 				    .showMessageInDialog(message);
 			}
@@ -350,7 +341,7 @@ public class App implements Serializable {
 				    + " tag has been added successfully... ");
 			} else {
 			    addMessage("INFO", mergeQuery()
-				    + " ekleme baþarýsýz... ");
+				    + " adding is unsuccessful... ");
 			}
 
 		    }
@@ -376,7 +367,7 @@ public class App implements Serializable {
 
 	} else {
 	    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN,
-		    "Tag sýnýrý dolu!!", " ");
+		    "Tag limit is full!!", " ");
 	    RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 	clearList();
@@ -416,36 +407,48 @@ public class App implements Serializable {
 				    selectedJiraTag.length())) > 0) {
 
 			if (selectedJiraTag.substring(0, 4).equals("ABE-")
-				|| selectedJiraTag.substring(0, 4).equals("abe-")) {
+				|| selectedJiraTag.substring(0, 4).equals(
+					"abe-")) {
 
-			    url = "http://jira.genband.com:8080/rest/api/2/issue/" + selectedJiraTag;
+			    String databaseUrl = parameterService
+				    .findByParameter("REST_URL").getValue();
 
-			    donen = nct.descriptionRestConn("GET", url, LoginRest.jsessionId);
+			    url = databaseUrl + selectedJiraTag;
+
+			    donen = nct.descriptionRestConn("GET", url,
+				    LoginRest.jsessionId);
 
 			    JSONObject donenJsonObject = new JSONObject(donen);
 			    String jiraDescription = donenJsonObject
-				    .getJSONObject("fields").getString("description");
+				    .getJSONObject("fields").getString(
+					    "description");
 
 			    if (jiraDescription.equals(null)) {
-				addMessageInfo("Description boþ.", " ");
+				addMessageInfo("Description area is empty!!",
+					" ");
 			    } else {
 				String description = descriptionIntegration(
 					selectedJiraTag, jiraDescription);
 				setTxtFileUpload("");
 				setTxtFileUpload(description);
-				RequestContext.getCurrentInstance().update("frmUpload:inptDescriptionFU"); 
+				RequestContext.getCurrentInstance().update(
+					"frmUpload:inptDescriptionFU");
 			    }
 			}
 		    }
 		} else {
 		    FacesMessage message = new FacesMessage(
-			    FacesMessage.SEVERITY_WARN, "Tag sýnýrý dolu!!!", " ");
-		    RequestContext.getCurrentInstance().showMessageInDialog(message);
+			    FacesMessage.SEVERITY_WARN, "Tag limit is full!!!",
+			    " ");
+		    RequestContext.getCurrentInstance().showMessageInDialog(
+			    message);
 		}
 	    } else {
 		FacesMessage message = new FacesMessage(
-			FacesMessage.SEVERITY_WARN,"Birden fazla ayný tag eklenemez!!", " ");
-		RequestContext.getCurrentInstance().showMessageInDialog(message);
+			FacesMessage.SEVERITY_WARN,
+			"The same tag more than one can not add!!", " ");
+		RequestContext.getCurrentInstance()
+			.showMessageInDialog(message);
 	    }
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -456,42 +459,48 @@ public class App implements Serializable {
     public String descriptionIntegration(String selectedJiraTag,
 	    String description) {
 
-	builder.insert(0,"\n");
-	builder.insert(0,description);
-	builder.insert(0,"\n");
-	builder.insert(0,selectedJiraTag);
+	builder.insert(0, "\n");
+	builder.insert(0, description);
+	builder.insert(0, "\n");
+	builder.insert(0, selectedJiraTag);
 	return builder.toString();
 
     }
-    
-    public void useful(AdiAlani dosyaAdi){
-	FileGroup fileGroup = getFileGroupService().findByFileGroup(dosyaAdi.getId());
-	List<FileGroup> fileGroupList = fileGroupService.listFileGroup(fileGroup.getName());
-	
+
+    public void useful(AdiAlani dosyaAdi) {
+	FileGroup fileGroup = getFileGroupService().findByFileGroup(
+		dosyaAdi.getId());
+	List<FileGroup> fileGroupList = fileGroupService
+		.listFileGroup(fileGroup.getName());
+
 	for (FileGroup likeFileGroup : fileGroupList) {
-	    int likeLogFileId=likeFileGroup.getId();
-	    FileGroup likeFileGroupEkleme = fileGroupService.findByFileGroup(likeLogFileId);
-	    likeFileGroupEkleme.setUseful(likeFileGroup.getUseful()+1);
+	    int likeLogFileId = likeFileGroup.getId();
+	    FileGroup likeFileGroupEkleme = fileGroupService
+		    .findByFileGroup(likeLogFileId);
+	    likeFileGroupEkleme.setUseful(likeFileGroup.getUseful() + 1);
 	    fileGroupService.update(likeFileGroupEkleme);
-	    
+
 	}
 	selectRecord();
     }
-    
-    public void useless(AdiAlani dosyaAdi){ 
-	FileGroup fileGroup = getFileGroupService().findByFileGroup(dosyaAdi.getId());
-	List<FileGroup> fileGroupList = fileGroupService.listFileGroup(fileGroup.getName());
-	
+
+    public void useless(AdiAlani dosyaAdi) {
+	FileGroup fileGroup = getFileGroupService().findByFileGroup(
+		dosyaAdi.getId());
+	List<FileGroup> fileGroupList = fileGroupService
+		.listFileGroup(fileGroup.getName());
+
 	for (FileGroup unlikeFileGroup : fileGroupList) {
-	    int unlikeLogFileId=unlikeFileGroup.getId();
-	    FileGroup unlikeFileGroupEkleme = fileGroupService.findByFileGroup(unlikeLogFileId);
-	    unlikeFileGroupEkleme.setUseless(unlikeFileGroup.getUseless()+1);
+	    int unlikeLogFileId = unlikeFileGroup.getId();
+	    FileGroup unlikeFileGroupEkleme = fileGroupService
+		    .findByFileGroup(unlikeLogFileId);
+	    unlikeFileGroupEkleme.setUseless(unlikeFileGroup.getUseless() + 1);
 	    fileGroupService.update(unlikeFileGroupEkleme);
-	}  
+	}
 	selectRecord();
-	
+
     }
-    
+
     public void unselectListener(UnselectEvent event) {
 	String itemSelected = event.getObject().toString();
 	jiraTagList.remove(itemSelected.toString());
@@ -750,7 +759,7 @@ public class App implements Serializable {
 		clearList();
 
 		if (txtFileGroupName != "" && txtFileGroupName != null) {
-		    addMessageError("Error", "File group ismi zaten var.");
+		    addMessageError("Error", "File group name already exists!!");
 		}
 
 	    }
@@ -858,7 +867,7 @@ public class App implements Serializable {
 	search = null;
 	bringTagCloud();
     }
-    
+
     public void listsFileGroup() {
 	for (int k = 0; k < listFileGroup.size(); k++) {
 	    FileGroup fileGroupss = listFileGroup.get(k);
@@ -989,8 +998,9 @@ public class App implements Serializable {
 		.getExternalContext().getRequestParameterMap();
 	FacesContext faces = FacesContext.getCurrentInstance();
 	ExternalContext context = faces.getExternalContext();
-	context.redirect("http://gbjiraprod.genband.com:8080/browse/"
-		+ params.get("fileGroupNameJira"));
+	String jiraTagUrl = parameterService.findByParameter("JIRA_TAG_URL")
+		.getValue();
+	context.redirect(jiraTagUrl + params.get("fileGroupNameJira"));
     }
 
     public void tagRequestParam() {
@@ -1240,7 +1250,7 @@ public class App implements Serializable {
     public void setTxtFileUpload(String txtFileUpload) {
 	this.txtFileUpload = txtFileUpload;
     }
-    
+
     public String getTestString() {
 	return fileListDescription;
     }

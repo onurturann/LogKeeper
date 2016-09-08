@@ -1,4 +1,5 @@
 package net.logkeeper.spring.model;
+
 // Generated 16.Mar.2016 09:29:26 by Hibernate Tools 3.4.0.CR1
 //interface katmaný
 import static javax.persistence.GenerationType.IDENTITY;
@@ -28,153 +29,149 @@ import org.hibernate.annotations.CascadeType;
 @Table(name = "file_group", catalog = "fileupload")
 public class FileGroup implements Serializable {
 
-	private Integer id;
-	private String name;
-	private int userId;
-	private String createDate;
-	private String updateDate;
-	private Boolean enabled;
-	private User user;
-	private String description;
-	private List<Tag> tags = new ArrayList<Tag>(0);
-	private int useful;
-	private int useless;
-	
-	
-	public FileGroup() 
-	{
-		
-	}
-	
-	public FileGroup(String name, int userId, String createDate) {
-		this.name = name;
-		this.userId = userId;
-		this.createDate = createDate;
-	}
+    private Integer id;
+    private String name;
+    private int userId;
+    private String createDate;
+    private String updateDate;
+    private Boolean enabled;
+    private User user;
+    private String description;
+    private List<Tag> tags = new ArrayList<Tag>(0);
+    private int useful;
+    private int useless;
 
-	public FileGroup(String name, int userId, String createDate, String updateDate, Boolean enabled) {
-		this.name = name;
-		this.userId = userId;
-		this.createDate = createDate;
-		this.updateDate = updateDate;
-		this.enabled = enabled;
-	}
+    public FileGroup() {
 
-	@Override
-	public String toString() 
-	{
-		return "FileGroup [id=" + id + ", name=" + name + ", userId=" + userId + ", createDate=" + createDate
-				+ ", updateDate=" + updateDate + ", enabled=" + enabled + ", user=" + user + ", description="
-				+ description + ", tags=" + tags + ", useful=" + useful + ", useless=" + useless + "]";
-	}
- 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
+    }
 
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
-	}
+    public FileGroup(String name, int userId, String createDate) {
+	this.name = name;
+	this.userId = userId;
+	this.createDate = createDate;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public FileGroup(String name, int userId, String createDate,
+	    String updateDate, Boolean enabled) {
+	this.name = name;
+	this.userId = userId;
+	this.createDate = createDate;
+	this.updateDate = updateDate;
+	this.enabled = enabled;
+    }
 
-	@Column(name = "name", nullable = false)
-	public String getName() {
-		return this.name;
-	}
+    @Override
+    public String toString() {
+	return "FileGroup [id=" + id + ", name=" + name + ", userId=" + userId
+		+ ", createDate=" + createDate + ", updateDate=" + updateDate
+		+ ", enabled=" + enabled + ", user=" + user + ", description="
+		+ description + ", tags=" + tags + ", useful=" + useful
+		+ ", useless=" + useless + "]";
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public Integer getId() {
+	return this.id;
+    }
 
-	@Column(name = "user_id", nullable = false)
-	public int getUserId() {
-		return this.userId;
-	}
+    public void setId(Integer id) {
+	this.id = id;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	
-	@Column(name = "create_date", nullable = false, length = 45)
-	public String getCreateDate() {
-		return this.createDate;
-	}
+    @Column(name = "name", nullable = false)
+    public String getName() {
+	return this.name;
+    }
 
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
+    public void setName(String name) {
+	this.name = name;
+    }
 
-	@Column(name = "update_date", length = 45)
-	public String getUpdateDate() {
-		return this.updateDate;
-	}
+    @Column(name = "user_id", nullable = false)
+    public int getUserId() {
+	return this.userId;
+    }
 
-	public void setUpdateDate(String updateDate) {
-		this.updateDate = updateDate;
-	}
-	
-	@Column(name = "description", length = 1000)
-	public String getDescription() {
-		return this.description;
-	}
+    public void setUserId(int userId) {
+	this.userId = userId;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    @Column(name = "create_date", nullable = false, length = 45)
+    public String getCreateDate() {
+	return this.createDate;
+    }
 
-	@Column(name = "enabled")
-	public Boolean getEnabled() {
-		return this.enabled;
-	}
+    public void setCreateDate(String createDate) {
+	this.createDate = createDate;
+    }
 
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
-	
-	
-	@Column(name = "useful", nullable=false)
-	public int getUseful() {
-	    return useful;
-	}
+    @Column(name = "update_date", length = 45)
+    public String getUpdateDate() {
+	return this.updateDate;
+    }
 
-	public void setUseful(int useful) {
-	    this.useful = useful;
-	}
+    public void setUpdateDate(String updateDate) {
+	this.updateDate = updateDate;
+    }
 
-	@Column(name = "useless", nullable=false)
-	public int getUseless() {
-	    return useless;
-	}
+    @Column(name = "description", length = 1000)
+    public String getDescription() {
+	return this.description;
+    }
 
-	public void setUseless(int useless) {
-	    this.useless = useless;
-	}
+    public void setDescription(String description) {
+	this.description = description;
+    }
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", nullable = false,insertable=false, updatable=false)
-	public User getUser() {
-		return this.user;
-	}
+    @Column(name = "enabled")
+    public Boolean getEnabled() {
+	return this.enabled;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-	@ManyToMany(fetch = FetchType.EAGER)
-	@Cascade(CascadeType.ALL)
-	@JoinTable(name = "file_group_tag", catalog = "fileupload", joinColumns = { 
-			@JoinColumn(name = "file_group_id", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "tag_id", 
-					nullable = false, updatable = false ) })
-	//@Cascade(CascadeType.DELETE)
-	public List<Tag> getTags() {
-		return this.tags;
-	}
+    public void setEnabled(Boolean enabled) {
+	this.enabled = enabled;
+    }
 
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
-	
+    @Column(name = "useful", nullable = false)
+    public int getUseful() {
+	return useful;
+    }
+
+    public void setUseful(int useful) {
+	this.useful = useful;
+    }
+
+    @Column(name = "useless", nullable = false)
+    public int getUseless() {
+	return useless;
+    }
+
+    public void setUseless(int useless) {
+	this.useless = useless;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
+    public User getUser() {
+	return this.user;
+    }
+
+    public void setUser(User user) {
+	this.user = user;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade(CascadeType.ALL)
+    @JoinTable(name = "file_group_tag", catalog = "fileupload", joinColumns = { @JoinColumn(name = "file_group_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tag_id", nullable = false, updatable = false) })
+    // @Cascade(CascadeType.DELETE)
+    public List<Tag> getTags() {
+	return this.tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+	this.tags = tags;
+    }
+
 }

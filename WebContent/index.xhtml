@@ -19,12 +19,13 @@
 		<h:panelGroup layout="block" styleClass="navigationBar">
 			<p:menubar>
 				<f:facet name="options">
-					<p:commandButton actionListener="#{app.selectRecord}" 
-						value="Search" update=":form:fooTable" styleClass="btnSearch" ajax="false"
-						icon="fa fa-fw fa-search" />
+					<p:commandButton actionListener="#{app.selectRecord}"
+						value="Search" update=":form:fooTable" styleClass="btnSearch"
+						ajax="false" icon="fa fa-fw fa-search" />
 					<h:panelGroup layout="block" styleClass="searchTag">
-						<p:autoComplete styleClass="txtSearch" value="#{app.search}" placeholder="Enter Tag"
-							completeMethod="#{app.completeTagSearch}" multiple="true">
+						<p:autoComplete styleClass="txtSearch" value="#{app.search}"
+							placeholder="Enter Tag" completeMethod="#{app.completeTagSearch}"
+							multiple="true">
 							<p:ajax event="itemSelect" listener="#{app.selectListener}" />
 							<p:ajax event="itemUnselect" listener="#{app.unselectListener}" />
 						</p:autoComplete>
@@ -33,7 +34,8 @@
 				<f:facet name="options">
 					<p:commandButton type="button" value="Upload"
 						rendered="#{not empty username}" icon="fa fa-fw fa-upload"
-						onclick="PF('dlgFileUpload').show();" action="#{app.setTxtFileUpload(null)}" />
+						onclick="PF('dlgFileUpload').show();"
+						action="#{app.setTxtFileUpload(null)}" />
 					<p:commandButton value="Login" rendered="#{empty username}"
 						onclick="PF('dlgUserLogin').show();" />
 					<p:commandButton id="btnLogout" value="Logout"
@@ -41,7 +43,7 @@
 						rendered="#{not empty username}" ajax="false"
 						icon="fa fa-fw fa-sign-out" />
 					<p:graphicImage id="giAvatar" value="#{imageBean.image}"
-						rendered="#{not empty username}">	
+						rendered="#{not empty username}">
 					</p:graphicImage>
 				</f:facet>
 			</p:menubar>
@@ -50,7 +52,7 @@
 
 		<br />
 		<h:panelGroup layout="block" styleClass="fileList">
-			<h:panelGroup layout="block" styleClass="fileListContent">		
+			<h:panelGroup layout="block" styleClass="fileListContent">
 				<p:dataTable id="fooTable" styleClass="borderless" rows="5"
 					draggableColumns="true" selection="#{app.selectedAdiAlani}"
 					rowKey="#{s.id}" value="#{app.liste}" widgetVar="tblFileGroup"
@@ -62,7 +64,7 @@
 						<h:outputText value="Search all fields:" />
 						<p:inputText id="globalFilter"
 							onkeyup="PF('tblFileGroup').filter()" style="width:600px;"
-							placeholder= "Dosya adına, paylaşan kişiye, oluşturulma tarihine göre arama..." />
+							placeholder="Dosya adına, paylaşan kişiye, oluşturulma tarihine göre arama..." />
 						<p:commandButton id="toggler" type="button" value="Columns"
 							style="float:right; font-size:0.9em !important;"
 							icon="fa fa-fw fa-toggle-on" />
@@ -89,25 +91,32 @@
 					</p:column>
 					<p:column exportable="false" toggleable="false">
 						<h:panelGroup layout="block" styleClass="fileListBtnGroup">
-							<p:commandButton title="Edit" icon="fa fa-fw fa-edit" styleClass="btnSize"
-								actionListener="#{adiAlani.editAction(s)}"
+							<p:commandButton title="Edit" icon="fa fa-fw fa-edit"
+								styleClass="btnSize" actionListener="#{adiAlani.editAction(s)}"
 								update="form" style="width:28px; height:28px"
 								rendered="#{not s.editable and not empty username}" />
-							<p:commandButton icon="fa fa-fw fa-save" title="Save Changes" styleClass="btnSize" 
-								actionListener="#{adiAlani.saveAction(s)}" update="form" style="width:29px; height:29px"
+							<p:commandButton icon="fa fa-fw fa-save" title="Save Changes"
+								styleClass="btnSize" actionListener="#{adiAlani.saveAction(s)}"
+								update="form" style="width:29px; height:29px"
 								rendered="#{s.editable and not empty username}" />
-							<p:commandButton icon="fa fa-fw fa-close" title="Close" styleClass="btnSize" 
-								actionListener="#{adiAlani.closeAction(s)}" style="width:29px; height:29px" update="form"
+							<p:commandButton icon="fa fa-fw fa-close" title="Close"
+								styleClass="btnSize" actionListener="#{adiAlani.closeAction(s)}"
+								style="width:29px; height:29px" update="form"
 								rendered="#{s.editable and not empty username}" />
-							<p:remoteCommand name="rcDltZip" actionListener="#{app.downloadAfterDeleteZip}" />
-							<p:commandButton icon="fa fa-fw fa-download" ajax="false" styleClass="btnSize" onclick="PrimeFaces.monitorDownload(null, rcDltZip)"  oncomplete="rcDltZip()"
-								actionListener="#{app.download(s)}" title="View" style="width:29px; height:29px">
+							<p:remoteCommand name="rcDltZip"
+								actionListener="#{app.downloadAfterDeleteZip}" />
+							<p:commandButton icon="fa fa-fw fa-download" ajax="false"
+								styleClass="btnSize"
+								onclick="PrimeFaces.monitorDownload(null, rcDltZip)"
+								oncomplete="rcDltZip()" actionListener="#{app.download(s)}"
+								title="View" style="width:29px; height:29px">
 								<p:fileDownload value="#{app.sCFile}" />
 							</p:commandButton>
 							<p:remoteCommand name="rcFiles" update=":form:divFiles,growl"
 								actionListener="#{app.copyLink}" />
-							<p:commandButton actionListener="#{app.editAction}" styleClass="btnSize"
-								oncomplete="rcFiles()" icon="fa fa-fw fa-share" style="width:29px; height:29px">
+							<p:commandButton actionListener="#{app.editAction}"
+								styleClass="btnSize" oncomplete="rcFiles()"
+								icon="fa fa-fw fa-share" style="width:29px; height:29px">
 								<f:param name="fileGroupName" value="#{s.alani}" />
 								<f:param name="fileGroupId" value="#{s.id}" />
 							</p:commandButton>
@@ -118,19 +127,19 @@
 								<p:confirm header="Confirmation" message="Are you sure?"
 									icon="ui-icon-alert" />
 							</p:commandButton>
-							
+
 							<p:commandButton update="form" styleClass="btnSize"
 								rendered="#{not empty username}" icon="fa fa-fw fa-smile-o"
 								style="width:29px; height:29px" title="#{s.useful}"
 								actionListener="#{app.useful(s)}">
 							</p:commandButton>
-							
+
 							<p:commandButton update="form" styleClass="btnSize"
 								rendered="#{not empty username}" icon="fa fa-fw fa-meh-o"
-								style="width:29px; height:29px" title="#{s.useless}" 
-								actionListener="#{app.useless(s)}" >
+								style="width:29px; height:29px" title="#{s.useless}"
+								actionListener="#{app.useless(s)}">
 							</p:commandButton>
-							
+
 							<p:confirmDialog global="true" showEffect="fade"
 								hideEffect="fade">
 								<p:commandButton value="Yes" type="button"
@@ -142,10 +151,9 @@
 					</p:column>
 				</p:dataTable>
 				<p:tagCloud model="#{app.model}">
-						<p:ajax event="select" update="form"
-							listener="#{app.onSelect}" />
-							
-					</p:tagCloud>
+					<p:ajax event="select" update="form" listener="#{app.onSelect}" />
+
+				</p:tagCloud>
 				<h3>Export Page Data Only</h3>
 				<h:commandLink id="excel">
 					<h:graphicImage library="images" name="excel.png" />
@@ -165,20 +173,21 @@
 					<p:graphicImage library="images" name="xml.png" />
 					<p:dataExporter type="xml" target="fooTable" fileName="File Group" />
 				</h:commandLink>
-					
+
 			</h:panelGroup>
 		</h:panelGroup>
 
 		<br />
 		<h:panelGroup layout="block" id="divFiles" styleClass="filePath"
 			rendered="#{app.responseRendered}">
-				<h:panelGroup layout="block" styleClass="hFeature">
+			<h:panelGroup layout="block" styleClass="hFeature">
 					File list for
 					<h:outputText id="ouFileName" value="#{app.upperCase}" />
-				</h:panelGroup>
+			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="fileTop">
-				<p:commandButton id="addDescription" styleClass="btnColor" value="Add Description"
+				<p:commandButton id="addDescription" styleClass="btnColor"
+					value="Add Description"
 					rendered="#{app.responseRenderedDescription and not empty username}"
 					onclick="PF('dlgAddDescription').show();" icon="fa fa-fw fa-plus"></p:commandButton>
 				<h:outputText id="outDescription" rendered="#{empty username}"
@@ -209,18 +218,19 @@
 					<p:column headerText="Boyutu" sortBy="#{lp.size}">
 						<p:outputLabel value="#{lp.size}" />
 					</p:column>
-					
+
 					<p:column exportable="false" toggleable="false">
 						<h:panelGroup layout="block" styleClass="fileBtnGroup">
-							<p:commandButton icon="fa fa-fw fa-download" ajax="false" styleClass="btnSize"
-								actionListener="#{app.downloadFile(lp)}" title="View">
+							<p:commandButton icon="fa fa-fw fa-download" ajax="false"
+								styleClass="btnSize" actionListener="#{app.downloadFile(lp)}"
+								title="View">
 								<p:fileDownload value="#{app.sCFile}" />
 							</p:commandButton>
 							<p:remoteCommand name="rcFilesRequest"
 								update=":form:divFiles,growl" actionListener="#{app.copyLink}" />
-							<p:commandButton actionListener="#{app.fileRequestParam}" styleClass="btnSize"
-								oncomplete="rcFilesRequest()" update="growl"
-								icon="fa fa-fw fa-share" >
+							<p:commandButton actionListener="#{app.fileRequestParam}"
+								styleClass="btnSize" oncomplete="rcFilesRequest()"
+								update="growl" icon="fa fa-fw fa-share">
 								<f:param name="fileName" value="#{lp.idFile}" />
 							</p:commandButton>
 							<p:commandButton update="form" styleClass="btnSize"
@@ -241,33 +251,37 @@
 					</p:column>
 				</p:dataTable>
 			</h:panelGroup>
-			<h:panelGroup layout="block" styleClass="fileAddTagBottom" id="pnlTags">
+			<h:panelGroup layout="block" styleClass="fileAddTagBottom"
+				id="pnlTags">
 				<ui:repeat var="lfg" value="#{app.listFileGroups}">
-					<p:commandLink value="#{lfg.fileGroup}" escape="false" title="file group"
-						rendered="#{lfg.jira eq false}" styleClass="tag"
-						actionListener="#{app.tagRequestParam}" update=":form:pnlTags"
-						disabled="#{empty username}">
+					<p:commandLink value="#{lfg.fileGroup}" escape="false"
+						title="file group" rendered="#{lfg.jira eq false}"
+						styleClass="tag" actionListener="#{app.tagRequestParam}"
+						update=":form:pnlTags" disabled="#{empty username}">
 						<f:param name="ffileGroupId" value="#{lfg.id}" />
 					</p:commandLink>
-					<p:commandLink value="#{lfg.fileGroup}" id="cmBtnJira" ajax="false" styleClass="jira" title="jira"
-						escape="false" actionListener="#{app.tagRequestParamJira}"
-						target="_blank" rendered="#{lfg.jira eq true}">
+					<p:commandLink value="#{lfg.fileGroup}" id="cmBtnJira" ajax="false"
+						styleClass="jira" title="jira" escape="false"
+						actionListener="#{app.tagRequestParamJira}" target="_blank"
+						rendered="#{lfg.jira eq true}">
 						<f:param name="fileGroupNameJira" value="#{lfg.fileGroup}" />
 					</p:commandLink>
 				</ui:repeat>
 				<p:commandButton id="addTag" value="Add Tag" styleClass="btnColor"
 					rendered="#{not empty username}" onclick="PF('dlgAddTag').show();"
 					icon="fa fa-fw fa-plus" />
-				<p:commandButton id="addJira" value="Add Jira" styleClass="btnColorJira"
-					rendered="#{not empty username}" onclick="PF('dlgAddJira').show();"
-					icon="fa fa-fw fa-plus" />
+				<p:commandButton id="addJira" value="Add Jira"
+					styleClass="btnColorJira" rendered="#{not empty username}"
+					onclick="PF('dlgAddJira').show();" icon="fa fa-fw fa-plus" />
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="fileBottom">
 				<p:commandButton value="Add New File" icon="fa fa-fw fa-plus"
 					rendered="#{not empty username}" onclick="PF('dlgFile').show();" />
-					<p:remoteCommand name="rcDeleteZip" actionListener="#{app.downloadAfterDeleteZip}" />
-				<p:commandButton id="btnDownloadAll" value="Download All" onclick="PrimeFaces.monitorDownload(null, rcDeleteZip)"  oncomplete="rcDeleteZip()"
-					icon="fa fa-fw fa-download" ajax="false"
+				<p:remoteCommand name="rcDeleteZip"
+					actionListener="#{app.downloadAfterDeleteZip}" />
+				<p:commandButton id="btnDownloadAll" value="Download All"
+					onclick="PrimeFaces.monitorDownload(null, rcDeleteZip)"
+					oncomplete="rcDeleteZip()" icon="fa fa-fw fa-download" ajax="false"
 					actionListener="#{app.downloadAll}">
 					<p:fileDownload value="#{app.sCFile}" />
 				</p:commandButton>
@@ -278,8 +292,7 @@
 					icon="fa fa-fw fa-share">
 				</p:commandButton>
 				<p:commandButton value="Delete All" icon="fa fa-fw fa-trash"
-					update="form"
-					actionListener="#{app.deleteAllFile}"
+					update="form" actionListener="#{app.deleteAllFile}"
 					rendered="#{not empty username}">
 					<p:confirm header="Confirmation" message="Are you sure?"
 						icon="fa fa-fw fa-trash" />
@@ -298,32 +311,31 @@
 		</h:panelGroup>
 	</h:form>
 
-	<p:dialog header="User Login" widgetVar="dlgUserLogin"
-		modal="true" height="108">
+	<p:dialog header="User Login" widgetVar="dlgUserLogin" modal="true"
+		height="108">
 		<h:form>
 			<p:growl id="msgLogin" life="3000" showDetail="true" />
 			<!-- 			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> -->
 			<h:panelGrid columns="1">
-				<p:inputText id="username" value="#{loginRest.username}" required="true"
-					placeholder="Username..." label="username" />
+				<p:inputText id="username" value="#{loginRest.username}"
+					required="true" placeholder="Username..." label="username" />
 
-				<p:password id="password" value="#{loginRest.password}" required="true"
-					placeholder="Password..." label="password" />
+				<p:password id="password" value="#{loginRest.password}"
+					required="true" placeholder="Password..." label="password" />
 
 				<f:facet name="footer">
 					<p:commandButton value="Login" update="msgLogin,form"
-						styleClass="btnRight"
-						actionListener="#{loginRest.sessionRest}"
+						styleClass="btnRight" actionListener="#{loginRest.sessionRest}"
 						oncomplete="handleLoginRequest(xhr, status, args);PF('dlgUserLogin).head();" />
 				</f:facet>
 			</h:panelGrid>
 
 		</h:form>
 	</p:dialog>
-	
-	<p:dialog header="FILE UPLOAD" widgetVar="dlgFileUpload" showEffect="explode"
-		hideEffect="bounce" modal="true" rows="8" cols="55"
-		styleClass="modal">
+
+	<p:dialog header="FILE UPLOAD" widgetVar="dlgFileUpload"
+		showEffect="explode" hideEffect="bounce" modal="true" rows="8"
+		cols="55" styleClass="modal">
 		<h:form enctype="multipart/form-data" id="frmUpload">
 			<div class="ui-fluid">
 				<h:panelGrid columns="1" cellpadding="5" id="pgFileUpload"
@@ -332,39 +344,41 @@
 					<p:remoteCommand name="rcFileUpload"
 						update="inptFileGroupName,inptDescriptionFU,fuAuto,:form:fooTable"
 						actionListener="#{app.btnFileUpload()}" />
-					<p:inputText id="inptFileGroupName" value="#{app.txtFileGroupName}" 
+					<p:inputText id="inptFileGroupName" value="#{app.txtFileGroupName}"
 						placeholder="File Group Name...">
 					</p:inputText>
-					<p:autoComplete id="fuAuto" value="#{app.search}" 
+					<p:autoComplete id="fuAuto" value="#{app.search}"
 						placeholder="Enter Tag..."
 						completeMethod="#{app.completeTagDatabase}" multiple="true">
 						<p:ajax event="itemSelect" listener="#{app.selectListener}" />
 						<p:ajax event="itemUnselect" listener="#{app.unselectListener}" />
 					</p:autoComplete>
-					<p:inputTextarea id="inptDescriptionFU" style="max-height:100px; min-height:100px; "
-						placeholder="Enter Description..." value="#{app.txtFileUpload}" autocomplete="off"></p:inputTextarea>
+					<p:inputTextarea id="inptDescriptionFU"
+						style="max-height:100px; min-height:100px; "
+						placeholder="Enter Description..." value="#{app.txtFileUpload}"
+						autocomplete="off"></p:inputTextarea>
 				</h:panelGrid>
-				</div>
-				
-				<p:fileUpload fileUploadListener="#{app.handleFileUpload}" 
-						oncomplete="rcFileUpload(); PF('dlgFileUpload').hide();" auto="false"
-						mode="advanced" invalidFileMessage="hatalı" update=":form:fooTable" dragDropSupport="true"
-						multiple="true">
-				
-					<h:head>
-						<style>
-						.ui-fileupload-content{
-						max-height:120px;
-						max-width:398px;
-						overflow-x:scroll;
-						overflow-y:scroll;
-						}
-						</style>
-					</h:head>
-				</p:fileUpload>		
+			</div>
+
+			<p:fileUpload fileUploadListener="#{app.handleFileUpload}"
+				oncomplete="rcFileUpload(); PF('dlgFileUpload').hide();"
+				auto="false" mode="advanced" invalidFileMessage="hatalı"
+				update=":form:fooTable" dragDropSupport="true" multiple="true">
+
+				<h:head>
+					<style>
+.ui-fileupload-content {
+	max-height: 120px;
+	max-width: 398px;
+	overflow-x: scroll;
+	overflow-y: scroll;
+}
+</style>
+				</h:head>
+			</p:fileUpload>
 		</h:form>
 	</p:dialog>
-	
+
 	<p:dialog header="ADD TAG" widgetVar="dlgAddTag" showEffect="explode"
 		hideEffect="bounce" modal="true" height="100" styleClass="modal">
 		<h:form>
@@ -412,7 +426,7 @@
 		hideEffect="bounce" modal="true" height="200" styleClass="modal">
 		<h:form enctype="multipart/form-data">
 			<p:growl id="msgFileUploadNew" life="1000" showDetail="true" />
-			<h:panelGrid columns="2" cellpadding="5" >
+			<h:panelGrid columns="2" cellpadding="5">
 				<h:outputLabel value="Choose File" />
 				<p:remoteCommand name="rc" update="form"
 					actionListener="#{app.fillFileName}" />
